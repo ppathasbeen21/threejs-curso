@@ -24,9 +24,28 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Sizes
 const sizes = {
-    width: 1200,
-    height: 900
+    width: window.innerWidth,
+    height: window.innerHeight
 }
+
+window.addEventListener('resize', function (){
+    sizes.width = window.innerWidth
+    sizes.height = window.innerHeight
+
+    //update camera
+    camera.aspect = sizes.width / sizes.height
+    camera.updateProjectionMatrix()
+
+    renderer.setSize(sizes.width, sizes.height)
+
+})
+
+window.addEventListener('dblclick', function () {
+    if(!document.fullscreenElement){
+        canvas.requestFullscreen()
+    }
+    document.exitFullscreen()
+})
 
 // Scene
 const scene = new THREE.Scene()
@@ -65,12 +84,15 @@ scene.add(camera)
 
 //Controls
 const controls = new OrbitControls(camera, canvas)
+controls.enableDamping = true
+
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
 renderer.setSize(sizes.width, sizes.height)
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 // Animate
 const clock = new THREE.Clock()
@@ -87,6 +109,9 @@ const tick = () =>
     // camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 2
     // camera.position.y = - cursor.y * 5
     // camera.lookAt(mesh.position)
+
+    // Update controls
+    controls.update()
 
     // Render
     renderer.render(scene, camera)
