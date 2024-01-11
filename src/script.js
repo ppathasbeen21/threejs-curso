@@ -5,15 +5,15 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 console.log(OrbitControls);
 
 // controle por mouse
-const cursor = {
-    x:0,
-    y:0
-}
-window.addEventListener('mousemove', function (e){
-    cursor.x = e.clientX / sizes.width -.5
-    cursor.y = e.clientY / sizes.width -.5
-
-})
+// const cursor = {
+//     x:0,
+//     y:0
+// }
+// window.addEventListener('mousemove', function (e){
+//     cursor.x = e.clientX / sizes.width -.5
+//     cursor.y = e.clientY / sizes.width -.5
+//
+// })
 
 /**
  * Base
@@ -52,8 +52,11 @@ const scene = new THREE.Scene()
 
 // Object
 const mesh = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1, 5, 5, 5),
-    new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
+    new THREE.BoxGeometry(1, 1, 1, 2, 2, 2),
+    new THREE.MeshBasicMaterial({
+        color: 0x0000ff,
+        wireframe: true
+    })
 )
 scene.add(mesh)
 
@@ -82,7 +85,7 @@ camera.position.z = 3
 camera.lookAt(mesh.position)
 scene.add(camera)
 
-//Controls
+//Controle pelo mouse via
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 
@@ -102,7 +105,7 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
-    // mesh.rotation.y = elapsedTime;
+    // mesh.rotation.set(elapsedTime * .875,elapsedTime, 0)
 
     // update Camera
     // camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 2
