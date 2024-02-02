@@ -2,8 +2,6 @@ import * as THREE from 'three'
 import './style.css'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
-console.log(OrbitControls);
-
 // controle por mouse
 // const cursor = {
 //     x:0,
@@ -52,20 +50,21 @@ const scene = new THREE.Scene()
 
 // Object
 const mesh = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1, 2, 2, 2),
-    new THREE.MeshBasicMaterial({
-        color: 0x0000ff,
-        wireframe: true
-    })
+    new THREE.BoxGeometry(1, 1, 1, 5, 5, 5),
+    new THREE.MeshNormalMaterial({ wireframe : false })
+    // new THREE.MeshBasicMaterial({
+    //     color: 0x0000ff,
+    //     wireframe: true
+    // })
 )
 scene.add(mesh)
 
 
-// Axes helper
-const axesHelper = new THREE.AxesHelper()
-scene.add(axesHelper)
+// Axes helper (triangulo rgb do mine)
+// const axesHelper = new THREE.AxesHelper()
+// scene.add(axesHelper)
 
-//tipos de camera
+// tipos de camera
 // const aspectRatio = sizes.width / sizes.height
 // const camera = new THREE.OrthographicCamera(
 //     -1 * aspectRatio,
@@ -81,7 +80,7 @@ const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 1, 10
 
 // camera.position.x = 2
 // camera.position.y = 2
-camera.position.z = 3
+camera.position.z = 4
 camera.lookAt(mesh.position)
 scene.add(camera)
 
@@ -104,7 +103,7 @@ const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
 
-    // Update objects
+    // Update objects Animação de rotação do bloco
     // mesh.rotation.set(elapsedTime * .875,elapsedTime, 0)
 
     // update Camera
